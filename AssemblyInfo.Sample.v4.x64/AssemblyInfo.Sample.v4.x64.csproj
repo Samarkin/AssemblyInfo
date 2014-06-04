@@ -39,7 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AssemblyInfo.Sample.v4.MSIL\AssemblyInfo.Sample.v4.MSIL.csproj">
+      <Project>{d5768f8a-7cf2-4acc-b461-d8c20c0a8873}</Project>
+      <Name>AssemblyInfo.Sample.v4.MSIL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

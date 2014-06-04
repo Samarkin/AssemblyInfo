@@ -11,6 +11,7 @@ namespace AssemblyInfo.Tests
 			var ass = new AssemblyProber(@"AssemblyInfo.Sample.v2.x86.dll");
 			Assert.That(ass.CLRVersion.StartsWith("v2."));
 			Assert.That(ass.Architecture, Is.EqualTo("X86"));
+			Assert.That(ass.Dependencies, Is.Not.Null);
 		}
 
 		[Test]
@@ -19,6 +20,7 @@ namespace AssemblyInfo.Tests
 			var ass = new AssemblyProber(@"AssemblyInfo.Sample.v4.MSIL.dll");
 			Assert.That(ass.CLRVersion.StartsWith("v4."));
 			Assert.That(ass.Architecture, Is.EqualTo("MSIL"));
+			Assert.That(ass.Dependencies, Is.Not.Null);
 		}
 
 		[Test]
@@ -27,6 +29,7 @@ namespace AssemblyInfo.Tests
 			var ass = new AssemblyProber(@"AssemblyInfo.Sample.v4.x64.dll");
 			Assert.That(ass.CLRVersion.StartsWith("v4."));
 			Assert.That(ass.Architecture, Is.EqualTo("Amd64"));
+			Assert.That(ass.Dependencies, Is.Not.Null);
 		}
 
 		[Test]
@@ -34,6 +37,7 @@ namespace AssemblyInfo.Tests
 		{
 			var ass = new AssemblyProber(null);
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.ArgumentError));
+			Assert.That(ass.Dependencies, Is.Not.Null);
 		}
 
 		[Test]
@@ -41,6 +45,7 @@ namespace AssemblyInfo.Tests
 		{
 			var ass = new AssemblyProber(@"");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.ArgumentError));
+			Assert.That(ass.Dependencies, Is.Not.Null);
 		}
 
 		[Test]
@@ -48,6 +53,7 @@ namespace AssemblyInfo.Tests
 		{
 			var ass = new AssemblyProber(@"UnexistingFile.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.FileNotFound));
+			Assert.That(ass.Dependencies, Is.Not.Null);
 		}
 
 		[Test]
@@ -55,8 +61,10 @@ namespace AssemblyInfo.Tests
 		{
 			var ass = new AssemblyProber(@"Samples\NonDllFile.txt");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.ReflectionError));
+			Assert.That(ass.Dependencies, Is.Not.Null);
 			ass = new AssemblyProber(@"Samples\NonDllFile.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.ReflectionError));
+			Assert.That(ass.Dependencies, Is.Not.Null);
 		}
 
 		[Test]
@@ -64,6 +72,7 @@ namespace AssemblyInfo.Tests
 		{
 			var ass = new AssemblyProber(@"Samples\Native.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.ReflectionError));
+			Assert.That(ass.Dependencies, Is.Not.Null);
 		}
 	}
 }

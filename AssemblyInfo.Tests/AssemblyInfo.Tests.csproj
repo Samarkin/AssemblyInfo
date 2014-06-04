@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="AssemblyLoadingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReferenceTests.cs" />
     <Compile Include="VersioningTest.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace AssemblyInfo
@@ -28,6 +30,8 @@ namespace AssemblyInfo
 
 		private readonly ErrorLevel _errorLevel;
 
+		private readonly string[] _dependencies = new string[0];
+
 		public AssemblyProber(string fileName)
 		{
 			try
@@ -49,6 +53,8 @@ namespace AssemblyInfo
 				_clrVersion = assembly.ImageRuntimeVersion;
 
 				_errorLevel = ErrorLevel.Success;
+
+				_dependencies = assembly.GetReferencedAssemblies().Select(an => an.FullName).ToArray();
 			}
 			catch (ArgumentException)
 			{
@@ -115,6 +121,11 @@ namespace AssemblyInfo
 		public string DisplayName
 		{
 			get { return _displayName; }
+		}
+
+		public IEnumerable<string> Dependencies
+		{
+			get { return _dependencies; }
 		}
 	}
 }
