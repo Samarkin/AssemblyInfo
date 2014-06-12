@@ -5,7 +5,7 @@
 		d:DataContext="{d:DesignInstance AssemblyInfo:AssemblyProber}"
 		xmlns:AssemblyInfo="clr-namespace:AssemblyInfo"
 		Title="Assembly Info" mc:Ignorable="d"
-		Height="450" Width="350" WindowStartupLocation="CenterScreen"
+		Height="450" Width="700" WindowStartupLocation="CenterScreen"
 		KeyDown="OnKeyDown"
 		AllowDrop="True" DragEnter="OnDragEnter" DragLeave="OnDragLeave" Drop="OnDrop"
 		>

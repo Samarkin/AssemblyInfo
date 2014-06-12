@@ -15,10 +15,11 @@ namespace AssemblyInfo
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		private const string AssemblyKeyword = "/assembly";
+
 		private readonly string _title;
 		private AssemblyProber _prober;
-		private string _fileName;
-		private string _loadedFileName;
+		private AssemblyProber _loadedProber;
 		private readonly string _exePath;
 
 		public MainWindow()
@@ -26,15 +27,27 @@ namespace AssemblyInfo
 			InitializeComponent();
 			_title = Title;
 
-			Preload(Environment.GetCommandLineArgs().Skip(1).FirstOrDefault());
+			string name = null;
+			bool assembly = false;
+			foreach (var arg in Environment.GetCommandLineArgs().Skip(1))
+			{
+				if (string.Equals(arg, AssemblyKeyword, StringComparison.OrdinalIgnoreCase))
+				{
+					assembly = true;
+				}
+				else
+				{
+					name = name ?? arg;
+				}
+			}
+			Preload(name, assembly);
 			_exePath = Environment.GetCommandLineArgs().FirstOrDefault();
 			DisplayPreloaded();
 		}
 
-		private void Preload(string fileName)
+		private void Preload(string name, bool isAssemblyName = false)
 		{
-			_prober = new AssemblyProber(fileName);
-			_fileName = fileName;
+			_prober = new AssemblyProber(name, isAssemblyName);
 
 			Background = GetBrushForError();
 		}
@@ -43,16 +56,15 @@ namespace AssemblyInfo
 		{
 			DataContext = _prober;
 			Background = Brushes.White;
-			Title = !string.IsNullOrEmpty(_fileName)
-				? string.Format("{0} - {1}", Path.GetFileName(_fileName), _title)
+			Title = (_prober != null && !string.IsNullOrEmpty(_prober.FileName))
+				? string.Format("{0} - {1}", _prober.FileName, _title)
 				: _title;
-			_loadedFileName = _fileName;
+			_loadedProber = _prober;
 		}
 
 		private void DiscardPreloaded()
 		{
 			_prober = null;
-			_fileName = null;
 		}
 
 		#region Event handlers
@@ -69,10 +81,13 @@ namespace AssemblyInfo
 			if (dependency == null) return;
 			try
 			{
-				// TODO: fails to load DLL if it's in a different directory
-				// TODO: Move this line to AssemblyProber
-				var assembly = Assembly.ReflectionOnlyLoad(dependency);
-				Process.Start(_exePath, assembly.Location);
+				var locDir = Path.GetDirectoryName(_prober.Location);
+				Process.Start(new ProcessStartInfo
+					{
+						FileName = _exePath,
+						Arguments = string.Format("{0} \"{1}\"", AssemblyKeyword, dependency),
+						WorkingDirectory = string.IsNullOrWhiteSpace(locDir) ? Environment.CurrentDirectory : locDir
+					});
 			}
 			catch(Exception ex)
 			{
@@ -84,7 +99,7 @@ namespace AssemblyInfo
 		{
 			try
 			{
-				Process.Start("explorer.exe", string.Format("/select,{0}", _loadedFileName));
+				Process.Start("explorer.exe", string.Format("/select,{0}", _prober.Location));
 			}
 			catch(Exception ex)
 			{
