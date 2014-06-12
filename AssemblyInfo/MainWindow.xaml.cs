@@ -18,6 +18,7 @@ namespace AssemblyInfo
 		private readonly string _title;
 		private AssemblyProber _prober;
 		private string _fileName;
+		private string _loadedFileName;
 		private readonly string _exePath;
 
 		public MainWindow()
@@ -45,6 +46,13 @@ namespace AssemblyInfo
 			Title = !string.IsNullOrEmpty(_fileName)
 				? string.Format("{0} - {1}", Path.GetFileName(_fileName), _title)
 				: _title;
+			_loadedFileName = _fileName;
+		}
+
+		private void DiscardPreloaded()
+		{
+			_prober = null;
+			_fileName = null;
 		}
 
 		#region Event handlers
@@ -99,6 +107,7 @@ namespace AssemblyInfo
 		private void OnDragLeave(object sender, DragEventArgs e)
 		{
 			Background = Brushes.White;
+			DiscardPreloaded();
 		}
 
 		#endregion
