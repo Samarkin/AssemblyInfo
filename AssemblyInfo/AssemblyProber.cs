@@ -30,6 +30,8 @@ namespace AssemblyInfo
 
 		private readonly string[] _dependencies = new string[0];
 
+		private readonly bool _gac;
+
 		private readonly ErrorLevel _errorLevel;
 
 		public AssemblyProber(string fileName)
@@ -121,6 +123,11 @@ namespace AssemblyInfo
 		public string DisplayName
 		{
 			get { return _displayName; }
+		}
+
+		public bool GlobalAssemblyCache
+		{
+			get { return _gac; }
 		}
 
 		public IEnumerable<string> Dependencies
