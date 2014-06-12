@@ -35,6 +35,16 @@
 				</DataTrigger>
 			</Style.Triggers>
 		</Style>
+		<Style TargetType="Button">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding Path=ErrorLevel}" Value="ArgumentError">
+					<Setter Property="Visibility" Value="Collapsed"/>
+				</DataTrigger>
+				<DataTrigger Binding="{Binding Path=ErrorLevel}" Value="FileNotFound">
+					<Setter Property="Visibility" Value="Collapsed"/>
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
 		<Style TargetType="ListViewItem">
 			<!-- TODO: Investigate posibility of a memory leak -->
 			<EventSetter Event="MouseDoubleClick" Handler="OnDependencySelected"/>
@@ -57,7 +67,10 @@
 			<ColumnDefinition/>
 			<ColumnDefinition/>
 		</Grid.ColumnDefinitions>
-		<TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontSize="20" Text="{Binding FileName}"/>
+		<StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2">
+			<TextBlock FontSize="20" Text="{Binding FileName}"/>
+			<Button Content="Locate" Height="21" Click="OnLocateClick"/>
+		</StackPanel>
 		<TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding DisplayName}"/>
 		<TextBlock Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding CLRVersion}"/>
 		<TextBlock Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding Architecture}"/>

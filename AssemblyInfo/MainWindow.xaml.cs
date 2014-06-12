@@ -78,6 +78,18 @@ namespace AssemblyInfo
 			}
 		}
 
+		private void OnLocateClick(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				Process.Start("explorer.exe", string.Format("/select,{0}", _loadedFileName));
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+		}
+
 		#endregion
 
 		#region Drag-n-drop
