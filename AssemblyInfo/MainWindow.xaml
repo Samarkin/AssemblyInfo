@@ -5,7 +5,7 @@
 		d:DataContext="{d:DesignInstance AssemblyInfo:AssemblyProber}"
 		xmlns:AssemblyInfo="clr-namespace:AssemblyInfo"
 		Title="Assembly Info" mc:Ignorable="d"
-		Height="350" Width="350" WindowStartupLocation="CenterScreen"
+		Height="450" Width="350" WindowStartupLocation="CenterScreen"
 		KeyDown="OnKeyDown"
 		AllowDrop="True" DragEnter="OnDragEnter" DragLeave="OnDragLeave" Drop="OnDrop"
 		>
@@ -13,7 +13,7 @@
 		<Style TargetType="TextBlock">
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding Path=ErrorLevel}" Value="ArgumentError">
-					<Setter Property="Foreground" Value="White"/>
+					<Setter Property="Foreground" Value="Transparent"/>
 				</DataTrigger>
 				<DataTrigger Binding="{Binding Path=ErrorLevel}" Value="ReflectionError">
 					<Setter Property="Foreground" Value="Green"/>
@@ -22,24 +22,53 @@
 			<Setter Property="TextWrapping" Value="WrapWithOverflow"/>
 			<Setter Property="Padding" Value="5"/>
 		</Style>
+		<Style TargetType="ListView">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding Path=ErrorLevel}" Value="ArgumentError">
+					<Setter Property="Visibility" Value="Collapsed"/>
+				</DataTrigger>
+				<DataTrigger Binding="{Binding Path=ErrorLevel}" Value="FileNotFound">
+					<Setter Property="Visibility" Value="Collapsed"/>
+				</DataTrigger>
+				<DataTrigger Binding="{Binding Path=ErrorLevel}" Value="ReflectionError">
+					<Setter Property="Visibility" Value="Collapsed"/>
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+		<Style TargetType="ListViewItem">
+			<!-- TODO: Investigate posibility of a memory leak -->
+			<EventSetter Event="MouseDoubleClick" Handler="OnDependencySelected"/>
+		</Style>
 	</Window.Resources>
-	<StackPanel>
-		<TextBlock FontSize="20" Text="{Binding FileName}"/>
-		<TextBlock Text="{Binding DisplayName}"/>
-		<TextBlock Text="{Binding CLRVersion}"/>
-		<TextBlock Text="{Binding Architecture}"/>
-		<TextBlock Text="{Binding Culture}"/>
-		<StackPanel Orientation="Horizontal">
-			<TextBlock Text="Assembly version:"/>
-			<TextBlock Padding="0 5 5 5" Text="{Binding AssemblyVersion}"/>
-		</StackPanel>
-		<StackPanel Orientation="Horizontal">
-			<TextBlock Text="File version:"/>
-			<TextBlock Padding="0 5 5 5" Text="{Binding FileVersion}"/>
-		</StackPanel>
-		<StackPanel Orientation="Horizontal">
-			<TextBlock Text="Product version:"/>
-			<TextBlock Padding="0 5 5 5" Text="{Binding ProductVersion}"/>
-		</StackPanel>
-	</StackPanel>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontSize="20" Text="{Binding FileName}"/>
+		<TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding DisplayName}"/>
+		<TextBlock Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding CLRVersion}"/>
+		<TextBlock Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding Architecture}"/>
+		<TextBlock Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding Culture}"/>
+		<TextBlock Grid.Row="5" Grid.Column="0" Text="Assembly version:"/>
+		<TextBlock Grid.Row="5" Grid.Column="1" Padding="0 5 5 5" Text="{Binding AssemblyVersion}"/>
+		<TextBlock Grid.Row="6" Grid.Column="0" Text="File version:"/>
+		<TextBlock Grid.Row="6" Grid.Column="1" Padding="0 5 5 5" Text="{Binding FileVersion}"/>
+		<TextBlock Grid.Row="7" Grid.Column="0" Text="Product version:"/>
+		<TextBlock Grid.Row="7" Grid.Column="1" Padding="0 5 5 5" Text="{Binding ProductVersion}"/>
+		<TextBlock Grid.Row="8" Grid.Column="0" Text="Dependencies:"/>
+		<ListView Grid.Row="9" Grid.ColumnSpan="2" ItemsSource="{Binding Dependencies}"/>
+	</Grid>
 </Window>

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -15,6 +18,7 @@ namespace AssemblyInfo
 		private readonly string _title;
 		private AssemblyProber _prober;
 		private string _fileName;
+		private readonly string _exePath;
 
 		public MainWindow()
 		{
@@ -22,6 +26,7 @@ namespace AssemblyInfo
 			_title = Title;
 
 			Preload(Environment.GetCommandLineArgs().Skip(1).FirstOrDefault());
+			_exePath = Environment.GetCommandLineArgs().FirstOrDefault();
 			DisplayPreloaded();
 		}
 
@@ -48,6 +53,21 @@ namespace AssemblyInfo
 		{
 			if (e.Key == Key.F3 || e.Key == Key.Escape)
 				Close();
+		}
+
+		private void OnDependencySelected(object sender, MouseButtonEventArgs e)
+		{
+			string dependency = ((ListViewItem)sender).Content as string;
+			if (dependency == null) return;
+			try
+			{
+				var assembly = Assembly.ReflectionOnlyLoad(dependency);
+				Process.Start(_exePath, assembly.Location);
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+			}
 		}
 
 		#endregion

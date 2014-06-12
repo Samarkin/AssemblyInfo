@@ -54,7 +54,7 @@ namespace AssemblyInfo
 
 				_errorLevel = ErrorLevel.Success;
 
-				_dependencies = assembly.GetReferencedAssemblies().Select(an => an.FullName).ToArray();
+				_dependencies = assembly.GetReferencedAssemblies().Select(an => an.FullName).OrderBy(a => a).ToArray();
 			}
 			catch (ArgumentException)
 			{
