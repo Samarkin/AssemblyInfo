@@ -69,6 +69,8 @@ namespace AssemblyInfo
 			if (dependency == null) return;
 			try
 			{
+				// TODO: fails to load DLL if it's in a different directory
+				// TODO: Move this line to AssemblyProber
 				var assembly = Assembly.ReflectionOnlyLoad(dependency);
 				Process.Start(_exePath, assembly.Location);
 			}
