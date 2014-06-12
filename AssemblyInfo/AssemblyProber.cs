@@ -28,9 +28,9 @@ namespace AssemblyInfo
 		private readonly string _productVersion = Unknown;
 		private readonly string _fileName = Unknown;
 
-		private readonly ErrorLevel _errorLevel;
-
 		private readonly string[] _dependencies = new string[0];
+
+		private readonly ErrorLevel _errorLevel;
 
 		public AssemblyProber(string fileName)
 		{
@@ -52,9 +52,9 @@ namespace AssemblyInfo
 
 				_clrVersion = assembly.ImageRuntimeVersion;
 
-				_errorLevel = ErrorLevel.Success;
-
 				_dependencies = assembly.GetReferencedAssemblies().Select(an => an.FullName).OrderBy(a => a).ToArray();
+
+				_errorLevel = ErrorLevel.Success;
 			}
 			catch (ArgumentException)
 			{
