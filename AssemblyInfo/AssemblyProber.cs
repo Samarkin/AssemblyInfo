@@ -19,42 +19,52 @@ namespace AssemblyInfo
 	{
 		private const string Unknown = "<Unknown>";
 
-		private readonly string _displayName = Unknown;
-		private readonly string _clrVersion = Unknown;
-		private readonly string _architecture = Unknown;
-		private readonly string _culture = Unknown;
-		private readonly string _assemblyVersion = Unknown;
-		private readonly string _fileVersion = Unknown;
-		private readonly string _productVersion = Unknown;
-		private readonly string _fileName = Unknown;
+		private string _displayName = Unknown;
+		private string _clrVersion = Unknown;
+		private string _architecture = Unknown;
+		private string _culture = Unknown;
+		private string _assemblyVersion = Unknown;
+		private string _fileVersion = Unknown;
+		private string _productVersion = Unknown;
+		private string _fileName;
+		private string _location;
 
-		private readonly string[] _dependencies = new string[0];
+		private string[] _dependencies = new string[0];
 
-		private readonly bool _gac;
+		private bool _gac;
 
 		private readonly ErrorLevel _errorLevel;
 
-		public AssemblyProber(string fileName)
+		public AssemblyProber(string name, bool isAssemblyName = false)
 		{
 			try
 			{
-				_fileName = Path.GetFileName(fileName);
-
-				var fileVersionInfo = FileVersionInfo.GetVersionInfo(fileName);
-				_fileVersion = fileVersionInfo.FileVersion;
-				_productVersion = fileVersionInfo.ProductVersion;
-
-				var assembly = Assembly.ReflectionOnlyLoadFrom(fileName);
-				var assemblyName = assembly.GetName();
-
-				_displayName = assemblyName.FullName;
-				_architecture = assemblyName.ProcessorArchitecture.ToString();
-				_culture = assemblyName.CultureName;
-				_assemblyVersion = assemblyName.Version.ToString();
-
-				_clrVersion = assembly.ImageRuntimeVersion;
-
-				_dependencies = assembly.GetReferencedAssemblies().Select(an => an.FullName).OrderBy(a => a).ToArray();
+				if (isAssemblyName)
+				{
+					Assembly assembly;
+					try
+					{
+						assembly = Assembly.ReflectionOnlyLoad(name);
+					}
+					catch (FileNotFoundException)
+					{
+						int commaPos = name.IndexOf(',');
+						if (commaPos < 0)
+						{
+							throw;
+						}
+						var dllPath = Path.Combine(Directory.GetCurrentDirectory(), name.Substring(0, commaPos) + ".dll");
+						assembly = Assembly.ReflectionOnlyLoadFrom(dllPath);
+					}
+					LoadAssemblyProperties(assembly);
+					LoadFileProperties(assembly.Location);
+				}
+				else
+				{
+					LoadFileProperties(name);
+					var assembly = Assembly.ReflectionOnlyLoadFrom(name);
+					LoadAssemblyProperties(assembly);
+				}
 
 				_errorLevel = ErrorLevel.Success;
 			}
@@ -80,6 +90,31 @@ namespace AssemblyInfo
 			}
 		}
 
+		private void LoadAssemblyProperties(Assembly assembly)
+		{
+			var assemblyName = assembly.GetName();
+
+			_displayName = assemblyName.FullName;
+			_architecture = assemblyName.ProcessorArchitecture.ToString();
+			_culture = assemblyName.CultureName;
+			_assemblyVersion = assemblyName.Version.ToString();
+
+			_clrVersion = assembly.ImageRuntimeVersion;
+			_gac = assembly.GlobalAssemblyCache;
+
+			_dependencies = assembly.GetReferencedAssemblies().Select(an => an.FullName).OrderBy(a => a).ToArray();
+		}
+
+		private void LoadFileProperties(string fileName)
+		{
+			_location = fileName;
+			_fileName = Path.GetFileName(fileName);
+
+			var fileVersionInfo = FileVersionInfo.GetVersionInfo(fileName);
+			_fileVersion = fileVersionInfo.FileVersion;
+			_productVersion = fileVersionInfo.ProductVersion;
+		}
+
 		public ErrorLevel ErrorLevel
 		{
 			get { return _errorLevel; }
@@ -88,6 +123,11 @@ namespace AssemblyInfo
 		public string FileName
 		{
 			get { return _fileName; }
+		}
+
+		public string Location
+		{
+			get { return _location; }
 		}
 
 		public string CLRVersion
