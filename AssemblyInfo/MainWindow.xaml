@@ -74,7 +74,7 @@
 			<TextBlock FontSize="20" Text="{Binding FileName}"/>
 			<Button Style="{StaticResource HideIfCannotLocateStyle}" Content="Locate" Height="21" Click="OnLocateClick"/>
 		</StackPanel>
-		<TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding DisplayName}"/>
+		<TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding DisplayName}" MouseUp="OnDisplayNameClick"/>
 		<TextBlock Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding CLRVersion}"/>
 		<TextBlock Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding Architecture}"/>
 		<TextBlock Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding Culture}"/>

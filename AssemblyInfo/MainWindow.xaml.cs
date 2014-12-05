@@ -107,6 +107,19 @@ namespace AssemblyInfo
 			}
 		}
 
+		private void OnDisplayNameClick(object sender, MouseButtonEventArgs e)
+		{
+			try
+			{
+				Clipboard.SetText(_loadedProber.DisplayName);
+				MessageBox.Show("Assembly name copied to clipboard", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(string.Format("Unable to copy to clipboard: {0}", ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+		}
+
 		#endregion
 
 		#region Drag-n-drop
