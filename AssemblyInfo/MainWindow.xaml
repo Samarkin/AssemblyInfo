@@ -52,6 +52,30 @@
 			<!-- TODO: Investigate posibility of a memory leak -->
 			<EventSetter Event="MouseDoubleClick" Handler="OnDependencySelected"/>
 		</Style>
+		<DataTemplate x:Key="DependencyTemplate" DataType="AssemblyInfo:AssemblyDependency">
+			<TextBlock Text="{Binding DisplayName}">
+				<TextBlock.Style>
+					<Style TargetType="TextBlock">
+						<Style.Triggers>
+							<MultiDataTrigger>
+								<MultiDataTrigger.Conditions>
+									<Condition Binding="{Binding Satisfied}" Value="false"/>
+									<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="true"/>
+								</MultiDataTrigger.Conditions>
+								<Setter Property="Foreground" Value="MistyRose"/>
+							</MultiDataTrigger>
+							<MultiDataTrigger>
+								<MultiDataTrigger.Conditions>
+									<Condition Binding="{Binding Satisfied}" Value="false"/>
+									<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="false"/>
+								</MultiDataTrigger.Conditions>
+								<Setter Property="Foreground" Value="Red"/>
+							</MultiDataTrigger>
+						</Style.Triggers>
+					</Style>
+				</TextBlock.Style>
+			</TextBlock>
+		</DataTemplate>
 	</Window.Resources>
 	<Grid>
 		<Grid.RowDefinitions>
@@ -85,6 +109,6 @@
 		<TextBlock Grid.Row="7" Grid.Column="0" Text="Product version:"/>
 		<TextBlock Grid.Row="7" Grid.Column="1" Padding="0 5 5 5" Text="{Binding ProductVersion}"/>
 		<TextBlock Style="{StaticResource HideOnAnyErrorStyle}" TextWrapping="WrapWithOverflow" Padding="5" Grid.Row="8" Grid.Column="0" Text="Dependencies:"/>
-		<ListView Style="{StaticResource HideOnAnyErrorStyle}" Grid.Row="9" Grid.ColumnSpan="2" ItemsSource="{Binding Dependencies}"/>
+		<ListView Style="{StaticResource HideOnAnyErrorStyle}" Grid.Row="9" Grid.ColumnSpan="2" ItemsSource="{Binding Dependencies}" ItemTemplate="{StaticResource DependencyTemplate}"/>
 	</Grid>
 </Window>

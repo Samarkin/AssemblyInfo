@@ -77,7 +77,7 @@ namespace AssemblyInfo
 
 		private void OnDependencySelected(object sender, MouseButtonEventArgs e)
 		{
-			string dependency = ((ListViewItem)sender).Content as string;
+			AssemblyDependency dependency = ((ListViewItem)sender).Content as AssemblyDependency;
 			if (dependency == null) return;
 			try
 			{
@@ -85,7 +85,7 @@ namespace AssemblyInfo
 				Process.Start(new ProcessStartInfo
 					{
 						FileName = _exePath,
-						Arguments = string.Format("{0} \"{1}\"", AssemblyKeyword, dependency),
+						Arguments = string.Format("{0} \"{1}\"", AssemblyKeyword, dependency.DisplayName),
 						WorkingDirectory = string.IsNullOrWhiteSpace(locDir) ? Environment.CurrentDirectory : locDir
 					});
 			}

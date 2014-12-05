@@ -29,7 +29,7 @@ namespace AssemblyInfo
 		private string _fileName;
 		private string _location;
 
-		private string[] _dependencies = new string[0];
+		private AssemblyDependency[] _dependencies = new AssemblyDependency[0];
 
 		private bool _gac;
 
@@ -102,7 +102,7 @@ namespace AssemblyInfo
 			_clrVersion = assembly.ImageRuntimeVersion;
 			_gac = assembly.GlobalAssemblyCache;
 
-			_dependencies = assembly.GetReferencedAssemblies().Select(an => an.FullName).OrderBy(a => a).ToArray();
+			_dependencies = assembly.GetReferencedAssemblies().Select(an => Probe(an.FullName)).OrderBy(a => a.DisplayName).ToArray();
 		}
 
 		private void LoadFileProperties(string fileName)
@@ -170,9 +170,45 @@ namespace AssemblyInfo
 			get { return _gac; }
 		}
 
-		public IEnumerable<string> Dependencies
+		public IEnumerable<AssemblyDependency> Dependencies
 		{
 			get { return _dependencies; }
+		}
+
+		private AssemblyDependency Probe(string assemblyName)
+		{
+			try
+			{
+				Assembly assembly;
+				try
+				{
+					assembly = Assembly.ReflectionOnlyLoad(assemblyName);
+				}
+				catch (FileNotFoundException)
+				{
+					var locDir = Path.GetDirectoryName(Location);
+					int commaPos = assemblyName.IndexOf(',');
+					if (commaPos < 0)
+					{
+						throw;
+					}
+					var dllPath = Path.Combine(locDir ?? Directory.GetCurrentDirectory(), assemblyName.Substring(0, commaPos) + ".dll");
+					assembly = Assembly.ReflectionOnlyLoadFrom(dllPath);
+				}
+				return new AssemblyDependency(assemblyName, assembly.FullName);
+			}
+			catch (FileNotFoundException)
+			{
+				return new AssemblyDependency(assemblyName, null);
+			}
+			catch (FileLoadException)
+			{
+				return new AssemblyDependency(assemblyName, null);
+			}
+			catch (BadImageFormatException)
+			{
+				return new AssemblyDependency(assemblyName, null);
+			}
 		}
 	}
 }
