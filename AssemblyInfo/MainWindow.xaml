@@ -5,11 +5,12 @@
 		d:DataContext="{d:DesignInstance AssemblyInfo:AssemblyProber}"
 		xmlns:AssemblyInfo="clr-namespace:AssemblyInfo"
 		Title="Assembly Info" mc:Ignorable="d"
-		Height="450" Width="700" WindowStartupLocation="CenterScreen"
+		Height="600" Width="700" WindowStartupLocation="CenterScreen"
 		KeyDown="OnKeyDown"
 		AllowDrop="True" DragEnter="OnDragEnter" DragLeave="OnDragLeave" Drop="OnDrop"
 		>
 	<Window.Resources>
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 		<Style TargetType="TextBlock">
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding Path=ErrorLevel}" Value="ArgumentError">
@@ -53,28 +54,46 @@
 			<EventSetter Event="MouseDoubleClick" Handler="OnDependencySelected"/>
 		</Style>
 		<DataTemplate x:Key="DependencyTemplate" DataType="AssemblyInfo:AssemblyDependency">
-			<TextBlock Text="{Binding DisplayName}">
-				<TextBlock.Style>
-					<Style TargetType="TextBlock">
-						<Style.Triggers>
-							<MultiDataTrigger>
-								<MultiDataTrigger.Conditions>
-									<Condition Binding="{Binding Satisfied}" Value="false"/>
-									<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="true"/>
-								</MultiDataTrigger.Conditions>
-								<Setter Property="Foreground" Value="MistyRose"/>
-							</MultiDataTrigger>
-							<MultiDataTrigger>
-								<MultiDataTrigger.Conditions>
-									<Condition Binding="{Binding Satisfied}" Value="false"/>
-									<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="false"/>
-								</MultiDataTrigger.Conditions>
-								<Setter Property="Foreground" Value="Red"/>
-							</MultiDataTrigger>
-						</Style.Triggers>
-					</Style>
-				</TextBlock.Style>
-			</TextBlock>
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="{Binding DisplayName}">
+					<TextBlock.Style>
+						<Style TargetType="TextBlock">
+							<Style.Triggers>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding Satisfied}" Value="false"/>
+										<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="true"/>
+									</MultiDataTrigger.Conditions>
+									<Setter Property="Foreground" Value="MistyRose"/>
+								</MultiDataTrigger>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding Satisfied}" Value="false"/>
+										<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="false"/>
+									</MultiDataTrigger.Conditions>
+									<Setter Property="Foreground" Value="Red"/>
+								</MultiDataTrigger>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding Redirected}" Value="true"/>
+										<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="true"/>
+									</MultiDataTrigger.Conditions>
+									<Setter Property="Foreground" Value="GreenYellow"/>
+								</MultiDataTrigger>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding Redirected}" Value="true"/>
+										<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="false"/>
+									</MultiDataTrigger.Conditions>
+									<Setter Property="Foreground" Value="LimeGreen"/>
+								</MultiDataTrigger>
+							</Style.Triggers>
+						</Style>
+					</TextBlock.Style>
+				</TextBlock>
+				<TextBlock Text="->" Margin="5 0" Visibility="{Binding Path=Redirected, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+				<TextBlock Text="{Binding ResolvedName}" Visibility="{Binding Path=Redirected, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+			</StackPanel>
 		</DataTemplate>
 	</Window.Resources>
 	<Grid>
