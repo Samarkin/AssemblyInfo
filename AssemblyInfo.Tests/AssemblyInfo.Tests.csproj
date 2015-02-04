@@ -53,15 +53,15 @@
       <Name>AssemblyInfo.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\AssemblyInfo.Sample.v2.x86\AssemblyInfo.Sample.v2.x86.csproj">
-      <Project>{54da9b90-84a2-4be0-9c00-dbedc64d29e6}</Project>
+      <Project>{54DA9B90-84A2-4BE0-9C00-DBEDC64D29E6}</Project>
       <Name>AssemblyInfo.Sample.v2.x86</Name>
     </ProjectReference>
     <ProjectReference Include="..\AssemblyInfo.Sample.v4.MSIL\AssemblyInfo.Sample.v4.MSIL.csproj">
-      <Project>{d5768f8a-7cf2-4acc-b461-d8c20c0a8873}</Project>
+      <Project>{D5768F8A-7CF2-4ACC-B461-D8C20C0A8873}</Project>
       <Name>AssemblyInfo.Sample.v4.MSIL</Name>
     </ProjectReference>
     <ProjectReference Include="..\AssemblyInfo.Sample.v4.x64\AssemblyInfo.Sample.v4.x64.csproj">
-      <Project>{d8ec79ad-59ce-4325-b427-235433edb478}</Project>
+      <Project>{D8EC79AD-59CE-4325-B427-235433EDB478}</Project>
       <Name>AssemblyInfo.Sample.v4.x64</Name>
     </ProjectReference>
   </ItemGroup>
