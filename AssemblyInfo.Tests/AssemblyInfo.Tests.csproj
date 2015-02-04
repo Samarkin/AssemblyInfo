@@ -64,10 +64,6 @@
       <Project>{d8ec79ad-59ce-4325-b427-235433edb478}</Project>
       <Name>AssemblyInfo.Sample.v4.x64</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AssemblyInfo\AssemblyInfo.csproj">
-      <Project>{BF5987BF-CB83-4D08-B465-EE8797C3FABB}</Project>
-      <Name>AssemblyInfo</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Samples\Native.dll">

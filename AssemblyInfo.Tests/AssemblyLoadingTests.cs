@@ -106,10 +106,10 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void NonDllFileLoadTest()
 		{
-			var ass = new AssemblyProber(@"Samples\NonDllFile.txt");
+			var ass = new AssemblyProber(@"Samples/NonDllFile.txt");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.ReflectionError));
 			Assert.That(ass.Dependencies, Is.Not.Null);
-			ass = new AssemblyProber(@"Samples\NonDllFile.dll");
+			ass = new AssemblyProber(@"Samples/NonDllFile.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.ReflectionError));
 			Assert.That(ass.Dependencies, Is.Not.Null);
 		}
@@ -117,7 +117,7 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void NonAssemblyDllLoadTest()
 		{
-			var ass = new AssemblyProber(@"Samples\Native.dll");
+			var ass = new AssemblyProber(@"Samples/Native.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.ReflectionError));
 			Assert.That(ass.Dependencies, Is.Not.Null);
 		}
