@@ -48,6 +48,10 @@
     <Compile Include="VersioningTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AssemblyInfo.Common\AssemblyInfo.Common.csproj">
+      <Project>{4E69B168-5378-4FE1-9EAC-55E57D353F5A}</Project>
+      <Name>AssemblyInfo.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AssemblyInfo.Sample.v2.x86\AssemblyInfo.Sample.v2.x86.csproj">
       <Project>{54da9b90-84a2-4be0-9c00-dbedc64d29e6}</Project>
       <Name>AssemblyInfo.Sample.v2.x86</Name>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using AssemblyInfo.Common;
 using NUnit.Framework;
 
 namespace AssemblyInfo.Tests

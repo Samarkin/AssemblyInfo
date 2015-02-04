@@ -1,6 +1,6 @@
 using System;
 
-namespace AssemblyInfo
+namespace AssemblyInfo.Common
 {
 	public class AssemblyDependency
 	{

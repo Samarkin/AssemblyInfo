@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using AssemblyInfo.Common;
+using NUnit.Framework;
 
 namespace AssemblyInfo.Tests
 {

@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace AssemblyInfo
+namespace AssemblyInfo.Common
 {
 	public enum ErrorLevel
 	{
