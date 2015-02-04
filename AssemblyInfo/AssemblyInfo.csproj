@@ -88,7 +88,11 @@
     <ProjectReference Include="..\AssemblyInfo.Common\AssemblyInfo.Common.csproj">
       <Project>{4E69B168-5378-4FE1-9EAC-55E57D353F5A}</Project>
       <Name>AssemblyInfo.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\AssemblyInfo.Common\bin\$(Configuration)\AssemblyInfo.Common.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
