@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Console = System.Console;
 using AssemblyInfo.Common;
 using System.Linq;
 
