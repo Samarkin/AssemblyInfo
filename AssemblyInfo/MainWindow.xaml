@@ -117,16 +117,16 @@
 			<TextBlock FontSize="20" Text="{Binding FileName}"/>
 			<Button Style="{StaticResource HideIfCannotLocateStyle}" Content="Locate" Height="21" Click="OnLocateClick"/>
 		</StackPanel>
-		<TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding DisplayName}" MouseUp="OnDisplayNameClick"/>
-		<TextBlock Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding CLRVersion}"/>
-		<TextBlock Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding Architecture}"/>
-		<TextBlock Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding Culture}"/>
+		<TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding DisplayName, TargetNullValue='&lt;Unknown&gt;'}" MouseUp="OnDisplayNameClick"/>
+		<TextBlock Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding CLRVersion, TargetNullValue='&lt;Unknown&gt;'}"/>
+		<TextBlock Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding Architecture, TargetNullValue='&lt;Unknown&gt;'}"/>
+		<TextBlock Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding Culture, TargetNullValue='&lt;Unknown&gt;'}"/>
 		<TextBlock Grid.Row="5" Grid.Column="0" Text="Assembly version:"/>
-		<TextBlock Grid.Row="5" Grid.Column="1" Padding="0 5 5 5" Text="{Binding AssemblyVersion}"/>
+		<TextBlock Grid.Row="5" Grid.Column="1" Padding="0 5 5 5" Text="{Binding AssemblyVersion, TargetNullValue='&lt;Unknown&gt;'}"/>
 		<TextBlock Grid.Row="6" Grid.Column="0" Text="File version:"/>
-		<TextBlock Grid.Row="6" Grid.Column="1" Padding="0 5 5 5" Text="{Binding FileVersion}"/>
+		<TextBlock Grid.Row="6" Grid.Column="1" Padding="0 5 5 5" Text="{Binding FileVersion, TargetNullValue='&lt;Unknown&gt;'}"/>
 		<TextBlock Grid.Row="7" Grid.Column="0" Text="Product version:"/>
-		<TextBlock Grid.Row="7" Grid.Column="1" Padding="0 5 5 5" Text="{Binding ProductVersion}"/>
+		<TextBlock Grid.Row="7" Grid.Column="1" Padding="0 5 5 5" Text="{Binding ProductVersion, TargetNullValue='&lt;Unknown&gt;'}"/>
 		<TextBlock Style="{StaticResource HideOnAnyErrorStyle}" TextWrapping="WrapWithOverflow" Padding="5" Grid.Row="8" Grid.Column="0" Text="Dependencies:"/>
 		<ListView Style="{StaticResource HideOnAnyErrorStyle}" Grid.Row="9" Grid.ColumnSpan="2" ItemsSource="{Binding Dependencies}" ItemTemplate="{StaticResource DependencyTemplate}"/>
 	</Grid>

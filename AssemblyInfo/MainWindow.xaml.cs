@@ -110,6 +110,7 @@ namespace AssemblyInfo
 
 		private void OnDisplayNameClick(object sender, MouseButtonEventArgs e)
 		{
+			if (_loadedProber.DisplayName == null) return;
 			try
 			{
 				Clipboard.SetText(_loadedProber.DisplayName);

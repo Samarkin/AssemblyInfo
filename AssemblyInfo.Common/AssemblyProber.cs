@@ -17,15 +17,13 @@ namespace AssemblyInfo.Common
 
 	public class AssemblyProber
 	{
-		private const string Unknown = "<Unknown>";
-
-		private string _displayName = Unknown;
-		private string _clrVersion = Unknown;
-		private string _architecture = Unknown;
-		private string _culture = Unknown;
-		private string _assemblyVersion = Unknown;
-		private string _fileVersion = Unknown;
-		private string _productVersion = Unknown;
+		private string _displayName;
+		private string _clrVersion;
+		private string _architecture;
+		private string _culture;
+		private string _assemblyVersion;
+		private string _fileVersion;
+		private string _productVersion;
 		private string _fileName;
 		private string _location;
 
