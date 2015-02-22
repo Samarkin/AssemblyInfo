@@ -1,4 +1,6 @@
-﻿using Console = System.Console;
+﻿using System;
+using System.IO;
+using Console = System.Console;
 using AssemblyInfo.Common;
 using System.Linq;
 
@@ -13,7 +15,7 @@ namespace AssemblyInfo.Console
 			System.Console.WriteLine();
 			if (prober.ErrorLevel == ErrorLevel.ArgumentError)
 			{
-				System.Console.Error.WriteLine("Usage: {0} <assembly>");
+				System.Console.Error.WriteLine("Usage: {0} <assembly>", Path.GetFileName(Environment.GetCommandLineArgs()[0]));
 				return (int)prober.ErrorLevel;
 			}
 			System.Console.WriteLine(prober.FileName);
