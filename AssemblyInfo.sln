@@ -15,12 +15,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyInfo.Sample.v4.x64"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyInfo.Common", "AssemblyInfo.Common\AssemblyInfo.Common.csproj", "{4E69B168-5378-4FE1-9EAC-55E57D353F5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyInfo.Console", "AssemblyInfo.Console\AssemblyInfo.Console.csproj", "{24C468FA-5EAD-44C6-9313-CF885CBCA3FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24C468FA-5EAD-44C6-9313-CF885CBCA3FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24C468FA-5EAD-44C6-9313-CF885CBCA3FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24C468FA-5EAD-44C6-9313-CF885CBCA3FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24C468FA-5EAD-44C6-9313-CF885CBCA3FD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4767E00E-B4EF-4792-825A-B7AF517C1021}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4767E00E-B4EF-4792-825A-B7AF517C1021}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4767E00E-B4EF-4792-825A-B7AF517C1021}.Release|Any CPU.ActiveCfg = Release|Any CPU
