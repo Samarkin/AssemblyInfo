@@ -30,7 +30,7 @@ namespace AssemblyInfo.Common
 		private AssemblyDependency[] _dependencies = new AssemblyDependency[0];
 
 		private bool _gac;
-		private bool _debug;
+		private bool? _debug;
 
 		private readonly ErrorLevel _errorLevel;
 
@@ -199,7 +199,7 @@ namespace AssemblyInfo.Common
 			get { return _gac; }
 		}
 
-		public bool Debug
+		public bool? Debug
 		{
 			get { return _debug; }
 		}

@@ -47,6 +47,7 @@ namespace AssemblyInfo.Tests
 			var ass = new AssemblyProber(null);
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.ArgumentError));
 			Assert.That(ass.Dependencies, Is.Not.Null);
+			Assert.That(ass.Debug, Is.Null);
 		}
 
 		[Test]
@@ -89,6 +90,7 @@ namespace AssemblyInfo.Tests
 			var ass = new AssemblyProber(@"");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.ArgumentError));
 			Assert.That(ass.Dependencies, Is.Not.Null);
+			Assert.That(ass.Debug, Is.Null);
 		}
 
 		[Test]
@@ -97,10 +99,12 @@ namespace AssemblyInfo.Tests
 			var ass = new AssemblyProber(@"UnexistingFile.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.FileNotFound));
 			Assert.That(ass.Dependencies, Is.Not.Null);
+			Assert.That(ass.Debug, Is.Null);
 
 			ass = new AssemblyProber(@"System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.FileNotFound));
 			Assert.That(ass.Dependencies, Is.Not.Null);
+			Assert.That(ass.Debug, Is.Null);
 		}
 
 		[Test]
@@ -109,9 +113,12 @@ namespace AssemblyInfo.Tests
 			var ass = new AssemblyProber(@"Samples/NonDllFile.txt");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.ReflectionError));
 			Assert.That(ass.Dependencies, Is.Not.Null);
+			Assert.That(ass.Debug, Is.Null);
+
 			ass = new AssemblyProber(@"Samples/NonDllFile.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.ReflectionError));
 			Assert.That(ass.Dependencies, Is.Not.Null);
+			Assert.That(ass.Debug, Is.Null);
 		}
 
 		[Test]
@@ -120,6 +127,7 @@ namespace AssemblyInfo.Tests
 			var ass = new AssemblyProber(@"Samples/Native.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.ReflectionError));
 			Assert.That(ass.Dependencies, Is.Not.Null);
+			Assert.That(ass.Debug, Is.Null);
 		}
 	}
 }
