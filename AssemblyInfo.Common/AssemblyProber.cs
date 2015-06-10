@@ -30,6 +30,7 @@ namespace AssemblyInfo.Common
 		private AssemblyDependency[] _dependencies = new AssemblyDependency[0];
 
 		private bool _gac;
+		private bool _debug;
 
 		private readonly ErrorLevel _errorLevel;
 
@@ -88,6 +89,31 @@ namespace AssemblyInfo.Common
 			}
 		}
 
+		private static Attribute CreateAttribute(CustomAttributeData data)
+		{
+			var arguments = data.ConstructorArguments.Select(arg => arg.Value).ToArray();
+			var attribute = data.Constructor.Invoke(arguments) as Attribute;
+			if (data.NamedArguments == null) return attribute;
+
+			foreach (var namedArgument in data.NamedArguments)
+			{
+				var propertyInfo = namedArgument.MemberInfo as PropertyInfo;
+				if (propertyInfo != null)
+				{
+					propertyInfo.SetValue(attribute, namedArgument.TypedValue.Value, null);
+				}
+				else
+				{
+					var fieldInfo = namedArgument.MemberInfo as FieldInfo;
+					if (fieldInfo != null)
+					{
+						fieldInfo.SetValue(attribute, namedArgument.TypedValue.Value);
+					}
+				}
+			}
+			return attribute;
+		}
+
 		private void LoadAssemblyProperties(Assembly assembly)
 		{
 			var assemblyName = assembly.GetName();
@@ -101,6 +127,11 @@ namespace AssemblyInfo.Common
 			_gac = assembly.GlobalAssemblyCache;
 
 			_dependencies = assembly.GetReferencedAssemblies().Select(an => Probe(an.FullName)).OrderBy(a => a.DisplayName).ToArray();
+
+			_debug = assembly.GetCustomAttributesData()
+				.Where(attr => attr.AttributeType == typeof(DebuggableAttribute))
+				.Select(attr => (DebuggableAttribute)CreateAttribute(attr))
+				.Any(d => d.IsJITTrackingEnabled || d.IsJITOptimizerDisabled);
 		}
 
 		private void LoadFileProperties(string fileName)
@@ -166,6 +197,11 @@ namespace AssemblyInfo.Common
 		public bool GlobalAssemblyCache
 		{
 			get { return _gac; }
+		}
+
+		public bool Debug
+		{
+			get { return _debug; }
 		}
 
 		public IEnumerable<AssemblyDependency> Dependencies

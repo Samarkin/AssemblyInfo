@@ -119,7 +119,10 @@
 		</StackPanel>
 		<TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding DisplayName, TargetNullValue='&lt;Unknown&gt;'}" MouseUp="OnDisplayNameClick"/>
 		<TextBlock Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding CLRVersion, TargetNullValue='&lt;Unknown&gt;'}"/>
-		<TextBlock Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding Architecture, TargetNullValue='&lt;Unknown&gt;'}"/>
+		<StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+			<TextBlock Text="{Binding Architecture, TargetNullValue='&lt;Unknown&gt;'}"/>
+			<TextBlock Text="(Debug)" Visibility="{Binding Path=Debug, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+		</StackPanel>
 		<TextBlock Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding Culture, TargetNullValue='&lt;Unknown&gt;'}"/>
 		<TextBlock Grid.Row="5" Grid.Column="0" Text="Assembly version:"/>
 		<TextBlock Grid.Row="5" Grid.Column="1" Padding="0 5 5 5" Text="{Binding AssemblyVersion, TargetNullValue='&lt;Unknown&gt;'}"/>
