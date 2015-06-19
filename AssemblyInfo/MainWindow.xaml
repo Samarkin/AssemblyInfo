@@ -31,6 +31,9 @@
 				<DataTrigger Binding="{Binding Path=Debug}" Value="False">
 					<Setter Property="Text" Value="(Release)"/>
 				</DataTrigger>
+				<DataTrigger Binding="{Binding Path=Debug}" Value="{x:Null}">
+					<Setter Property="Text" Value=""/>
+				</DataTrigger>
 			</Style.Triggers>
 		</Style>
 		<Style x:Key="HideOnAnyErrorStyle" TargetType="FrameworkElement">
