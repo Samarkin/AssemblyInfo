@@ -9,7 +9,7 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void VersionsTest()
 		{
-			var ass = new AssemblyProber(@"..\AssemblyInfo.Sample.v4.x64.dll");
+			var ass = new AssemblyProber(@"..\1\AssemblyInfo.Sample.v4.x64.dll");
 			Assert.That(ass.AssemblyVersion, Is.EqualTo("1.2.3.4"));
 			Assert.That(ass.FileVersion, Is.EqualTo("2.3.4.5"));
 			Assert.That(ass.ProductVersion, Is.EqualTo("2.3.4.5"));
@@ -18,7 +18,7 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void DebugTest()
 		{
-			var ass = new AssemblyProber(@"..\AssemblyInfo.Sample.v2.x86.dll");
+			var ass = new AssemblyProber(@"..\1\AssemblyInfo.Sample.v2.x86.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.Debug, Is.True);
 		}
@@ -26,7 +26,7 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void ReleaseTest()
 		{
-			var ass = new AssemblyProber(@"..\AssemblyInfo.Sample.v4.x64.dll");
+			var ass = new AssemblyProber(@"..\1\AssemblyInfo.Sample.v4.x64.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.Debug, Is.False);
 		}

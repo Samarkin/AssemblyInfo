@@ -11,12 +11,41 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void X86AssemblyLoadTest()
 		{
-			var ass = new AssemblyProber(@"..\AssemblyInfo.Sample.v2.x86.dll");
+			var ass = new AssemblyProber(@"..\1\AssemblyInfo.Sample.v2.x86.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.CLRVersion.StartsWith("v2."));
 			Assert.That(ass.Architecture, Is.EqualTo("X86"));
 			Assert.That(ass.GlobalAssemblyCache, Is.False);
 			Assert.That(ass.Dependencies, Is.Not.Null);
+			Assert.That(ass.AssemblyVersion, Is.EqualTo("1.0.0.0"));
+			Assert.That(ass.FileVersion, Is.EqualTo("1.0.0.0"));
+		}
+
+		[Test]
+		public void X86AssemblyLoadTest2()
+		{
+			var ass = new AssemblyProber(@"..\2\AssemblyInfo.Sample.v2.x86.dll");
+			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
+			Assert.That(ass.CLRVersion.StartsWith("v2."));
+			Assert.That(ass.Architecture, Is.EqualTo("X86"));
+			Assert.That(ass.GlobalAssemblyCache, Is.False);
+			Assert.That(ass.Dependencies, Is.Not.Null);
+			Assert.That(ass.AssemblyVersion, Is.EqualTo("1.0.0.0"));
+			Assert.That(ass.FileVersion, Is.EqualTo("2.0.0.0"));
+		}
+
+		[Test]
+		public void MultiAssemblyLoadTest()
+		{
+			var ass1 = new AssemblyProber(@"..\1\AssemblyInfo.Sample.v2.x86.dll");
+			Assert.That(ass1.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
+			Assert.That(ass1.AssemblyVersion, Is.EqualTo("1.0.0.0"));
+			Assert.That(ass1.FileVersion, Is.EqualTo("1.0.0.0"));
+
+			var ass2 = new AssemblyProber(@"..\2\AssemblyInfo.Sample.v2.x86.dll");
+			Assert.That(ass2.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
+			Assert.That(ass2.AssemblyVersion, Is.EqualTo("1.0.0.0"));
+			Assert.That(ass2.FileVersion, Is.EqualTo("2.0.0.0"));
 		}
 
 		[Test]
@@ -33,7 +62,7 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void X64AssemblyLoadTest()
 		{
-			var ass = new AssemblyProber(@"..\AssemblyInfo.Sample.v4.x64.dll");
+			var ass = new AssemblyProber(@"..\1\AssemblyInfo.Sample.v4.x64.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.CLRVersion.StartsWith("v4."));
 			Assert.That(ass.Architecture, Is.EqualTo("Amd64"));
