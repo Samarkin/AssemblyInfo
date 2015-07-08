@@ -11,7 +11,7 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void X86AssemblyLoadTest()
 		{
-			var ass = new AssemblyProber(@"AssemblyInfo.Sample.v2.x86.dll");
+			var ass = new AssemblyProber(@"..\AssemblyInfo.Sample.v2.x86.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.CLRVersion.StartsWith("v2."));
 			Assert.That(ass.Architecture, Is.EqualTo("X86"));
@@ -33,7 +33,7 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void X64AssemblyLoadTest()
 		{
-			var ass = new AssemblyProber(@"AssemblyInfo.Sample.v4.x64.dll");
+			var ass = new AssemblyProber(@"..\AssemblyInfo.Sample.v4.x64.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.CLRVersion.StartsWith("v4."));
 			Assert.That(ass.Architecture, Is.EqualTo("Amd64"));
@@ -53,7 +53,7 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void AssemblyNameLoadingTest()
 		{
-			var ass = new AssemblyProber("AssemblyInfo.Sample.v4.x64", true);
+			var ass = new AssemblyProber("AssemblyInfo.Sample.v4.MSIL", true);
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.GlobalAssemblyCache, Is.False);
 		}

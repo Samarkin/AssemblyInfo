@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyInfo", "AssemblyInfo\AssemblyInfo.csproj", "{BF5987BF-CB83-4D08-B465-EE8797C3FABB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E292E8C1-9C10-4AD1-B70A-8B7CAFEF0D96}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyInfo.Tests", "AssemblyInfo.Tests\AssemblyInfo.Tests.csproj", "{4767E00E-B4EF-4792-825A-B7AF517C1021}"
+	ProjectSection(ProjectDependencies) = postProject
+		{54DA9B90-84A2-4BE0-9C00-DBEDC64D29E6} = {54DA9B90-84A2-4BE0-9C00-DBEDC64D29E6}
+		{D8EC79AD-59CE-4325-B427-235433EDB478} = {D8EC79AD-59CE-4325-B427-235433EDB478}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyInfo.Sample.v4.MSIL", "AssemblyInfo.Sample.v4.MSIL\AssemblyInfo.Sample.v4.MSIL.csproj", "{D5768F8A-7CF2-4ACC-B461-D8C20C0A8873}"
 EndProject
