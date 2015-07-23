@@ -34,14 +34,14 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Common\AssemblyDependency.cs">
+      <Link>AssemblyDependency.cs</Link>
+    </Compile>
+    <Compile Include="..\AssemblyInfo.Common\AssemblyProber.cs">
+      <Link>AssemblyProber.cs</Link>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\AssemblyInfo.Common\AssemblyInfo.Common.csproj">
-      <Project>{4E69B168-5378-4FE1-9EAC-55E57D353F5A}</Project>
-      <Name>AssemblyInfo.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>
