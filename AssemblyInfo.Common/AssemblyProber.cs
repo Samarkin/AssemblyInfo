@@ -50,9 +50,18 @@ namespace AssemblyInfo.Common
 		private bool? _debug;
 
 		private readonly ErrorLevel _errorLevel;
-		
+
+		private static readonly Dictionary<Tuple<string, bool>, AssemblyProber> AssemblyCache = new Dictionary<Tuple<string, bool>, AssemblyProber>(); 
+
 		public static AssemblyProber Create(string name, bool isAssemblyName = false)
 		{
+			var arg = new Tuple<string, bool>(name, isAssemblyName);
+			AssemblyProber result;
+			if (AssemblyCache.TryGetValue(arg, out result))
+			{
+				return result;
+			}
+
 			AppDomainSetup setup = new AppDomainSetup
 			{
 				ApplicationBase = isAssemblyName || string.IsNullOrWhiteSpace(name)
@@ -62,7 +71,9 @@ namespace AssemblyInfo.Common
 			AppDomain tmpDomain = AppDomain.CreateDomain("Temporary AssemblyProber domain", null, setup);
 			try
 			{
-				return tmpDomain.CreateInstanceUsingPrivateConstructor<AssemblyProber>(name, isAssemblyName);
+				result = tmpDomain.CreateInstanceUsingPrivateConstructor<AssemblyProber>(name, isAssemblyName);
+				AssemblyCache[arg] = result;
+				return result;
 			}
 			finally
 			{

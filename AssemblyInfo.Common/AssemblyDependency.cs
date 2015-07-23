@@ -11,6 +11,7 @@ namespace AssemblyInfo.Common
 		private readonly string _resolvedName;
 		private readonly bool _redirected;
 		private readonly string _resolvedDifference;
+		private AssemblyProber _assemblyProber;
 
 		public AssemblyDependency(string displayName, bool satisfied, string resolvedName)
 		{
@@ -59,6 +60,11 @@ namespace AssemblyInfo.Common
 		public string ResolvedDifference
 		{
 			get { return _resolvedDifference; }
+		}
+
+		public AssemblyProber Assembly
+		{
+			get { return _assemblyProber ?? (_assemblyProber = AssemblyProber.Create(_displayName, true)); }
 		}
 	}
 }

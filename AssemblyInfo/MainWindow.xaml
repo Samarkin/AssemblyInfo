@@ -66,7 +66,7 @@
 			<!-- TODO: Investigate posibility of a memory leak -->
 			<EventSetter Event="MouseDoubleClick" Handler="OnDependencySelected"/>
 		</Style>
-		<DataTemplate x:Key="DependencyTemplate" DataType="Common:AssemblyDependency">
+		<HierarchicalDataTemplate x:Key="DependencyTemplate" DataType="Common:AssemblyDependency" ItemsSource="{Binding Assembly.Dependencies}">
 			<StackPanel Orientation="Horizontal">
 				<TextBlock Text="{Binding DisplayName}">
 					<TextBlock.Style>
@@ -107,7 +107,7 @@
 				<TextBlock Text="->" Margin="5 0" Visibility="{Binding Path=Redirected, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 				<TextBlock Text="{Binding ResolvedDifference}" Visibility="{Binding Path=Redirected, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 			</StackPanel>
-		</DataTemplate>
+		</HierarchicalDataTemplate>
 	</Window.Resources>
 	<Grid>
 		<Grid.RowDefinitions>
@@ -144,6 +144,6 @@
 		<TextBlock Grid.Row="7" Grid.Column="0" Text="Product version:"/>
 		<TextBlock Grid.Row="7" Grid.Column="1" Padding="0 5 5 5" Text="{Binding ProductVersion, TargetNullValue='&lt;Unknown&gt;'}"/>
 		<TextBlock Style="{StaticResource HideOnAnyErrorStyle}" TextWrapping="WrapWithOverflow" Padding="5" Grid.Row="8" Grid.Column="0" Text="Dependencies:"/>
-		<ListView Style="{StaticResource HideOnAnyErrorStyle}" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Dependencies}" ItemTemplate="{StaticResource DependencyTemplate}"/>
+		<TreeView Style="{StaticResource HideOnAnyErrorStyle}" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Dependencies}" ItemTemplate="{StaticResource DependencyTemplate}"/>
 	</Grid>
 </Window>
