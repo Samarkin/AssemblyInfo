@@ -81,8 +81,9 @@ namespace AssemblyInfo.Common
 					{
 						assembly = Assembly.ReflectionOnlyLoad(name);
 					}
-					catch (FileNotFoundException)
+					catch (FileLoadException)
 					{
+						// Retry ignoring version
 						int commaPos = name.IndexOf(',');
 						if (commaPos < 0)
 						{
@@ -249,13 +250,15 @@ namespace AssemblyInfo.Common
 		{
 			try
 			{
-				Assembly assembly;
 				try
 				{
-					assembly = Assembly.ReflectionOnlyLoad(assemblyName);
+					Assembly assembly = Assembly.ReflectionOnlyLoad(assemblyName);
+					return new AssemblyDependency(assemblyName, true, assembly.FullName);
 				}
-				catch (FileNotFoundException)
+				catch (FileLoadException)
 				{
+					// Retry ignoring version
+					// Helps detect potential app.config redirections
 					var locDir = Path.GetDirectoryName(Location);
 					int commaPos = assemblyName.IndexOf(',');
 					if (commaPos < 0)
@@ -263,21 +266,21 @@ namespace AssemblyInfo.Common
 						throw;
 					}
 					var dllPath = Path.Combine(locDir ?? Directory.GetCurrentDirectory(), assemblyName.Substring(0, commaPos) + ".dll");
-					assembly = Assembly.ReflectionOnlyLoadFrom(dllPath);
+					Assembly assembly = Assembly.ReflectionOnlyLoadFrom(dllPath);
+					return new AssemblyDependency(assemblyName, false, assembly.FullName);
 				}
-				return new AssemblyDependency(assemblyName, assembly.FullName);
 			}
 			catch (FileNotFoundException)
 			{
-				return new AssemblyDependency(assemblyName, null);
+				return new AssemblyDependency(assemblyName, false, null);
 			}
 			catch (FileLoadException)
 			{
-				return new AssemblyDependency(assemblyName, null);
+				return new AssemblyDependency(assemblyName, false, null);
 			}
 			catch (BadImageFormatException)
 			{
-				return new AssemblyDependency(assemblyName, null);
+				return new AssemblyDependency(assemblyName, false, null);
 			}
 		}
 	}

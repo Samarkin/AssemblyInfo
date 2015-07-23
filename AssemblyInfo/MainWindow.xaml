@@ -74,20 +74,6 @@
 							<Style.Triggers>
 								<MultiDataTrigger>
 									<MultiDataTrigger.Conditions>
-										<Condition Binding="{Binding Satisfied}" Value="false"/>
-										<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="true"/>
-									</MultiDataTrigger.Conditions>
-									<Setter Property="Foreground" Value="MistyRose"/>
-								</MultiDataTrigger>
-								<MultiDataTrigger>
-									<MultiDataTrigger.Conditions>
-										<Condition Binding="{Binding Satisfied}" Value="false"/>
-										<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="false"/>
-									</MultiDataTrigger.Conditions>
-									<Setter Property="Foreground" Value="Red"/>
-								</MultiDataTrigger>
-								<MultiDataTrigger>
-									<MultiDataTrigger.Conditions>
 										<Condition Binding="{Binding Redirected}" Value="true"/>
 										<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="true"/>
 									</MultiDataTrigger.Conditions>
@@ -100,12 +86,26 @@
 									</MultiDataTrigger.Conditions>
 									<Setter Property="Foreground" Value="LimeGreen"/>
 								</MultiDataTrigger>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding Satisfied}" Value="false"/>
+										<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="true"/>
+									</MultiDataTrigger.Conditions>
+									<Setter Property="Foreground" Value="MistyRose"/>
+								</MultiDataTrigger>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding Satisfied}" Value="false"/>
+										<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="false"/>
+									</MultiDataTrigger.Conditions>
+									<Setter Property="Foreground" Value="Red"/>
+								</MultiDataTrigger>
 							</Style.Triggers>
 						</Style>
 					</TextBlock.Style>
 				</TextBlock>
 				<TextBlock Text="->" Margin="5 0" Visibility="{Binding Path=Redirected, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-				<TextBlock Text="{Binding ResolvedName}" Visibility="{Binding Path=Redirected, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+				<TextBlock Text="{Binding ResolvedDifference}" Visibility="{Binding Path=Redirected, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 			</StackPanel>
 		</DataTemplate>
 	</Window.Resources>

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace AssemblyInfo.Common
 {
@@ -9,8 +10,9 @@ namespace AssemblyInfo.Common
 		private readonly bool _satisfied;
 		private readonly string _resolvedName;
 		private readonly bool _redirected;
+		private readonly string _resolvedDifference;
 
-		public AssemblyDependency(string displayName, string resolvedName)
+		public AssemblyDependency(string displayName, bool satisfied, string resolvedName)
 		{
 			if (displayName == null)
 			{
@@ -18,9 +20,20 @@ namespace AssemblyInfo.Common
 			}
 
 			_displayName = displayName;
-			_satisfied = resolvedName != null;
+			_satisfied = satisfied;
 			_resolvedName = resolvedName;
-			_redirected = _satisfied && displayName != resolvedName;
+			_redirected = resolvedName != null && displayName != resolvedName;
+
+			if (resolvedName != null)
+			{
+				var displayNameParts = displayName.Split(new [] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim()).ToArray();
+				var resolvedNameParts = resolvedName.Split(',');
+				_resolvedDifference = string.Join(",", resolvedNameParts.Where(p => !displayNameParts.Contains(p.Trim())));
+			}
+			else
+			{
+				_resolvedDifference = null;
+			}
 		}
 
 		public string DisplayName
@@ -41,6 +54,11 @@ namespace AssemblyInfo.Common
 		public string ResolvedName
 		{
 			get { return _resolvedName; }
+		}
+
+		public string ResolvedDifference
+		{
+			get { return _resolvedDifference; }
 		}
 	}
 }
