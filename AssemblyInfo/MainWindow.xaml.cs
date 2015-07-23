@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -48,7 +47,7 @@ namespace AssemblyInfo
 
 		private void Preload(string name, bool isAssemblyName = false)
 		{
-			_prober = new AssemblyProber(name, isAssemblyName);
+			_prober = AssemblyProber.Create(name, isAssemblyName);
 
 			Background = GetBrushForError();
 		}

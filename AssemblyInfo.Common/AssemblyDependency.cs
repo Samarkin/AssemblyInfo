@@ -2,6 +2,7 @@ using System;
 
 namespace AssemblyInfo.Common
 {
+	[Serializable]
 	public class AssemblyDependency
 	{
 		private readonly string _displayName;

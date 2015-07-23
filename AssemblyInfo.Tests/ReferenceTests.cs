@@ -10,7 +10,7 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void DepdendencyTest()
 		{
-			var ass = new AssemblyProber(@"..\1\AssemblyInfo.Sample.v4.x64.dll");
+			var ass = AssemblyProber.Create(@"..\1\AssemblyInfo.Sample.v4.x64.dll");
 			Assert.That(ass.Dependencies, Is.Not.Null);
 			Assert.That(ass.Dependencies.Count(), Is.AtLeast(1));
 			Assert.That(ass.Dependencies.Any(s => s.DisplayName.StartsWith("AssemblyInfo.Sample.v4.MSIL")));

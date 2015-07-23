@@ -15,6 +15,23 @@ namespace AssemblyInfo.Common
 		ArgumentError = 3
 	}
 
+	internal static class AppDomainExtensions
+	{
+		public static T CreateInstanceUsingPrivateConstructor<T>(this AppDomain domain, params object[] args)
+		{
+			return (T)domain.CreateInstanceFromAndUnwrap(
+					typeof(T).Assembly.Location,
+					typeof(T).FullName,
+					false,
+					BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.CreateInstance,
+					null,
+					args,
+					null,
+					null);
+		}
+	}
+
+	[Serializable]
 	public class AssemblyProber
 	{
 		private string _displayName;
@@ -33,8 +50,27 @@ namespace AssemblyInfo.Common
 		private bool? _debug;
 
 		private readonly ErrorLevel _errorLevel;
+		
+		public static AssemblyProber Create(string name, bool isAssemblyName = false)
+		{
+			AppDomainSetup setup = new AppDomainSetup
+			{
+				ApplicationBase = isAssemblyName || string.IsNullOrWhiteSpace(name)
+					? Directory.GetCurrentDirectory()
+					: Path.GetDirectoryName(Path.GetFullPath(name))
+			};
+			AppDomain tmpDomain = AppDomain.CreateDomain("Temporary AssemblyProber domain", null, setup);
+			try
+			{
+				return tmpDomain.CreateInstanceUsingPrivateConstructor<AssemblyProber>(name, isAssemblyName);
+			}
+			finally
+			{
+				AppDomain.Unload(tmpDomain);
+			}
+		}
 
-		public AssemblyProber(string name, bool isAssemblyName = false)
+		private AssemblyProber(string name, bool isAssemblyName)
 		{
 			try
 			{

@@ -9,7 +9,7 @@ namespace AssemblyInfo.Console
 	{
 		public static int Main(string[] args)
 		{
-			var prober = new AssemblyProber(args.FirstOrDefault());
+			var prober = AssemblyProber.Create(args.FirstOrDefault());
 			System.Console.WriteLine("Assembly Info v{0}", typeof(AssemblyProber).Assembly.GetName().Version);
 			System.Console.WriteLine();
 			if (prober.ErrorLevel == ErrorLevel.ArgumentError)

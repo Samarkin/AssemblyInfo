@@ -11,7 +11,7 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void X86AssemblyLoadTest()
 		{
-			var ass = new AssemblyProber(@"..\1\AssemblyInfo.Sample.v2.x86.dll");
+			var ass = AssemblyProber.Create(@"..\1\AssemblyInfo.Sample.v2.x86.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.CLRVersion.StartsWith("v2."));
 			Assert.That(ass.Architecture, Is.EqualTo("X86"));
@@ -24,7 +24,7 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void X86AssemblyLoadTest2()
 		{
-			var ass = new AssemblyProber(@"..\2\AssemblyInfo.Sample.v2.x86.dll");
+			var ass = AssemblyProber.Create(@"..\2\AssemblyInfo.Sample.v2.x86.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.CLRVersion.StartsWith("v2."));
 			Assert.That(ass.Architecture, Is.EqualTo("X86"));
@@ -37,12 +37,15 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void MultiAssemblyLoadTest()
 		{
-			var ass1 = new AssemblyProber(@"..\1\AssemblyInfo.Sample.v2.x86.dll");
+			var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+			var ass1 = AssemblyProber.Create(@"..\1\AssemblyInfo.Sample.v2.x86.dll");
+			Assert.That(AppDomain.CurrentDomain.GetAssemblies(), Is.EqualTo(loadedAssemblies));
 			Assert.That(ass1.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass1.AssemblyVersion, Is.EqualTo("1.0.0.0"));
 			Assert.That(ass1.FileVersion, Is.EqualTo("1.0.0.0"));
 
-			var ass2 = new AssemblyProber(@"..\2\AssemblyInfo.Sample.v2.x86.dll");
+			var ass2 = AssemblyProber.Create(@"..\2\AssemblyInfo.Sample.v2.x86.dll");
+			Assert.That(AppDomain.CurrentDomain.GetAssemblies(), Is.EqualTo(loadedAssemblies));
 			Assert.That(ass2.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass2.AssemblyVersion, Is.EqualTo("1.0.0.0"));
 			Assert.That(ass2.FileVersion, Is.EqualTo("2.0.0.0"));
@@ -51,7 +54,7 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void AnyCPUAssemblyLoadTest()
 		{
-			var ass = new AssemblyProber(@"AssemblyInfo.Sample.v4.MSIL.dll");
+			var ass = AssemblyProber.Create(@"AssemblyInfo.Sample.v4.MSIL.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.CLRVersion.StartsWith("v4."));
 			Assert.That(ass.Architecture, Is.EqualTo("MSIL"));
@@ -62,7 +65,7 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void X64AssemblyLoadTest()
 		{
-			var ass = new AssemblyProber(@"..\1\AssemblyInfo.Sample.v4.x64.dll");
+			var ass = AssemblyProber.Create(@"..\1\AssemblyInfo.Sample.v4.x64.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.CLRVersion.StartsWith("v4."));
 			Assert.That(ass.Architecture, Is.EqualTo("Amd64"));
@@ -73,7 +76,7 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void NullLoadTest()
 		{
-			var ass = new AssemblyProber(null);
+			var ass = AssemblyProber.Create(null);
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.ArgumentError));
 			Assert.That(ass.Dependencies, Is.Not.Null);
 			Assert.That(ass.Debug, Is.Null);
@@ -82,7 +85,7 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void AssemblyNameLoadingTest()
 		{
-			var ass = new AssemblyProber("AssemblyInfo.Sample.v4.MSIL", true);
+			var ass = AssemblyProber.Create("AssemblyInfo.Sample.v4.MSIL", true);
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.GlobalAssemblyCache, Is.False);
 		}
@@ -94,7 +97,7 @@ namespace AssemblyInfo.Tests
 			Environment.CurrentDirectory = @"c:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\";
 			try
 			{
-				var ass = new AssemblyProber("Microsoft.Data.Entity.Design, Version=11.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", true);
+				var ass = AssemblyProber.Create("Microsoft.Data.Entity.Design, Version=11.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", true);
 				Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 				Assert.That(ass.Location, Is.EqualTo(Path.Combine(Environment.CurrentDirectory, "Microsoft.Data.Entity.Design.dll")));
 				Assert.That(ass.GlobalAssemblyCache, Is.False);
@@ -108,7 +111,7 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void GacLoadingTest()
 		{
-			var ass = new AssemblyProber("System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true);
+			var ass = AssemblyProber.Create("System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true);
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.GlobalAssemblyCache, Is.True);
 		}
@@ -116,7 +119,7 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void EmptyStringLoadTest()
 		{
-			var ass = new AssemblyProber(@"");
+			var ass = AssemblyProber.Create(@"");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.ArgumentError));
 			Assert.That(ass.Dependencies, Is.Not.Null);
 			Assert.That(ass.Debug, Is.Null);
@@ -125,12 +128,12 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void UnexistingFileLoadTest()
 		{
-			var ass = new AssemblyProber(@"UnexistingFile.dll");
+			var ass = AssemblyProber.Create(@"UnexistingFile.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.FileNotFound));
 			Assert.That(ass.Dependencies, Is.Not.Null);
 			Assert.That(ass.Debug, Is.Null);
 
-			ass = new AssemblyProber(@"System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
+			ass = AssemblyProber.Create(@"System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.FileNotFound));
 			Assert.That(ass.Dependencies, Is.Not.Null);
 			Assert.That(ass.Debug, Is.Null);
@@ -139,12 +142,12 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void NonDllFileLoadTest()
 		{
-			var ass = new AssemblyProber(@"Samples/NonDllFile.txt");
+			var ass = AssemblyProber.Create(@"Samples/NonDllFile.txt");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.ReflectionError));
 			Assert.That(ass.Dependencies, Is.Not.Null);
 			Assert.That(ass.Debug, Is.Null);
 
-			ass = new AssemblyProber(@"Samples/NonDllFile.dll");
+			ass = AssemblyProber.Create(@"Samples/NonDllFile.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.ReflectionError));
 			Assert.That(ass.Dependencies, Is.Not.Null);
 			Assert.That(ass.Debug, Is.Null);
@@ -153,7 +156,7 @@ namespace AssemblyInfo.Tests
 		[Test]
 		public void NonAssemblyDllLoadTest()
 		{
-			var ass = new AssemblyProber(@"Samples/Native.dll");
+			var ass = AssemblyProber.Create(@"Samples/Native.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.ReflectionError));
 			Assert.That(ass.Dependencies, Is.Not.Null);
 			Assert.That(ass.Debug, Is.Null);
