@@ -57,6 +57,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="..\AssemblyInfo.Common\AssemblyDependency.cs">
+      <Link>AssemblyDependency.cs</Link>
+    </Compile>
+    <Compile Include="..\AssemblyInfo.Common\AssemblyProber.cs">
+      <Link>AssemblyProber.cs</Link>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -83,16 +89,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AssemblyInfo.Common\AssemblyInfo.Common.csproj">
-      <Project>{4E69B168-5378-4FE1-9EAC-55E57D353F5A}</Project>
-      <Name>AssemblyInfo.Common</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="..\AssemblyInfo.Common\bin\$(Configuration)\AssemblyInfo.Common.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
