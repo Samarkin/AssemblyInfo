@@ -14,6 +14,7 @@ namespace AssemblyInfo.Tests
 			var ass = AssemblyProber.Create(@"..\1\AssemblyInfo.Sample.v2.x86.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.CLRVersion.StartsWith("v2."));
+			Assert.That(ass.TargetFramework, Is.Null);
 			Assert.That(ass.Architecture, Is.EqualTo("X86"));
 			Assert.That(ass.GlobalAssemblyCache, Is.False);
 			Assert.That(ass.Dependencies, Is.Not.Null);
@@ -27,6 +28,7 @@ namespace AssemblyInfo.Tests
 			var ass = AssemblyProber.Create(@"..\2\AssemblyInfo.Sample.v2.x86.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.CLRVersion.StartsWith("v2."));
+			Assert.That(ass.TargetFramework, Is.Null);
 			Assert.That(ass.Architecture, Is.EqualTo("X86"));
 			Assert.That(ass.GlobalAssemblyCache, Is.False);
 			Assert.That(ass.Dependencies, Is.Not.Null);
@@ -57,6 +59,7 @@ namespace AssemblyInfo.Tests
 			var ass = AssemblyProber.Create(@"AssemblyInfo.Sample.v4.MSIL.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.CLRVersion.StartsWith("v4."));
+			Assert.That(ass.TargetFramework, Is.EqualTo(".NET Framework 4.5"));
 			Assert.That(ass.Architecture, Is.EqualTo("MSIL"));
 			Assert.That(ass.GlobalAssemblyCache, Is.False);
 			Assert.That(ass.Dependencies, Is.Not.Null);
@@ -68,6 +71,7 @@ namespace AssemblyInfo.Tests
 			var ass = AssemblyProber.Create(@"..\1\AssemblyInfo.Sample.v4.x64.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.CLRVersion.StartsWith("v4."));
+			Assert.That(ass.TargetFramework, Is.EqualTo(".NET Framework 4.5"));
 			Assert.That(ass.Architecture, Is.EqualTo("Amd64"));
 			Assert.That(ass.GlobalAssemblyCache, Is.False);
 			Assert.That(ass.Dependencies, Is.Not.Null);
@@ -168,6 +172,7 @@ namespace AssemblyInfo.Tests
 			var ass = AssemblyProber.Create(@"..\1\netstandard2.0\AssemblyInfo.Sample.Standard.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.CLRVersion.StartsWith("v4."));
+			Assert.That(ass.TargetFramework, Is.Null);
 			Assert.That(ass.Architecture, Is.EqualTo("MSIL"));
 			Assert.That(ass.GlobalAssemblyCache, Is.False);
 			Assert.That(ass.Dependencies, Is.Not.Null);
@@ -179,6 +184,7 @@ namespace AssemblyInfo.Tests
 			var ass = AssemblyProber.Create(@"..\1\netcoreapp2.0\AssemblyInfo.Sample.Core.dll");
 			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
 			Assert.That(ass.CLRVersion.StartsWith("v4."));
+			Assert.That(ass.TargetFramework, Is.Null);
 			Assert.That(ass.Architecture, Is.EqualTo("MSIL"));
 			Assert.That(ass.GlobalAssemblyCache, Is.False);
 			Assert.That(ass.Dependencies, Is.Not.Null);

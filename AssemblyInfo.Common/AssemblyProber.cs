@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Versioning;
 
 namespace AssemblyInfo.Common
 {
@@ -43,6 +44,7 @@ namespace AssemblyInfo.Common
 		private string _productVersion;
 		private string _fileName;
 		private string _location;
+		private string _targetFramework;
 
 		private AssemblyDependency[] _dependencies = new AssemblyDependency[0];
 
@@ -183,6 +185,10 @@ namespace AssemblyInfo.Common
 
 			_debug = GetAssemblyAttributes<DebuggableAttribute>(assembly)
 				.Any(d => d.IsJITTrackingEnabled || d.IsJITOptimizerDisabled);
+
+			var frAttribute = GetAssemblyAttributes<TargetFrameworkAttribute>(assembly)
+				.FirstOrDefault();
+			_targetFramework = frAttribute?.FrameworkDisplayName ?? frAttribute?.FrameworkName;
 		}
 
 		private void LoadFileProperties(string fileName)
@@ -253,6 +259,11 @@ namespace AssemblyInfo.Common
 		public bool? Debug
 		{
 			get { return _debug; }
+		}
+
+		public string TargetFramework
+		{
+			get { return _targetFramework; }
 		}
 
 		public IEnumerable<AssemblyDependency> Dependencies

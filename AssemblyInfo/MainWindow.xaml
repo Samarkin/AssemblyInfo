@@ -131,7 +131,8 @@
 			<Button Style="{StaticResource HideIfCannotLocateStyle}" Content="Locate" Height="21" Click="OnLocateClick"/>
 		</StackPanel>
 		<TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding DisplayName, TargetNullValue='&lt;Unknown&gt;'}" MouseUp="OnDisplayNameClick"/>
-		<TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding CLRVersion, TargetNullValue='&lt;Unknown&gt;'}"/>
+		<TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding CLRVersion, TargetNullValue='&lt;Unknown&gt;'}"/>
+		<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding TargetFramework}"/>
 		<StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
 			<TextBlock Text="{Binding Architecture, TargetNullValue='&lt;Unknown&gt;'}"/>
 			<TextBlock Style="{StaticResource DebugReleaseTextBlock}"/>
