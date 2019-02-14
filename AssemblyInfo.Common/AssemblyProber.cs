@@ -50,7 +50,7 @@ namespace AssemblyInfo.Common
 		private bool? _debug;
 
 		private readonly ErrorLevel _errorLevel;
-		
+
 		public static AssemblyProber Create(string name, bool isAssemblyName = false)
 		{
 			AppDomainSetup setup = new AppDomainSetup
@@ -151,6 +151,22 @@ namespace AssemblyInfo.Common
 			return attribute;
 		}
 
+		private static IEnumerable<T> GetAssemblyAttributes<T>(Assembly assembly)
+			where T : Attribute
+		{
+			try
+			{
+				return assembly.GetCustomAttributesData()
+					.Where(attr => attr.AttributeType == typeof(T))
+					.Select(attr => (T) CreateAttribute(attr));
+			}
+			catch (Exception ex)
+				when (ex is FileNotFoundException || ex is FileLoadException || ex is BadImageFormatException)
+			{
+				return Enumerable.Empty<T>();
+			}
+		}
+
 		private void LoadAssemblyProperties(Assembly assembly)
 		{
 			var assemblyName = assembly.GetName();
@@ -165,9 +181,7 @@ namespace AssemblyInfo.Common
 
 			_dependencies = assembly.GetReferencedAssemblies().Select(an => Probe(an.FullName)).OrderBy(a => a.DisplayName).ToArray();
 
-			_debug = assembly.GetCustomAttributesData()
-				.Where(attr => attr.AttributeType == typeof(DebuggableAttribute))
-				.Select(attr => (DebuggableAttribute)CreateAttribute(attr))
+			_debug = GetAssemblyAttributes<DebuggableAttribute>(assembly)
 				.Any(d => d.IsJITTrackingEnabled || d.IsJITOptimizerDisabled);
 		}
 

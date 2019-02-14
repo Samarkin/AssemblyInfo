@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyInfo", "AssemblyInfo\AssemblyInfo.csproj", "{BF5987BF-CB83-4D08-B465-EE8797C3FABB}"
 EndProject
@@ -10,8 +10,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyInfo.Tests", "AssemblyInfo.Tests\AssemblyInfo.Tests.csproj", "{4767E00E-B4EF-4792-825A-B7AF517C1021}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7F077A18-1DE6-41B1-AB2E-4CF89203E2AC} = {7F077A18-1DE6-41B1-AB2E-4CF89203E2AC}
+		{6C085D1D-B233-49B8-BAC4-76EAA30BF982} = {6C085D1D-B233-49B8-BAC4-76EAA30BF982}
 		{54DA9B90-84A2-4BE0-9C00-DBEDC64D29E6} = {54DA9B90-84A2-4BE0-9C00-DBEDC64D29E6}
 		{D8EC79AD-59CE-4325-B427-235433EDB478} = {D8EC79AD-59CE-4325-B427-235433EDB478}
+		{6BDFB0F2-77D3-47A9-B2BF-7CC1E4E166D1} = {6BDFB0F2-77D3-47A9-B2BF-7CC1E4E166D1}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyInfo.Sample.v4.MSIL", "AssemblyInfo.Sample.v4.MSIL\AssemblyInfo.Sample.v4.MSIL.csproj", "{D5768F8A-7CF2-4ACC-B461-D8C20C0A8873}"
@@ -25,6 +27,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyInfo.Console", "AssemblyInfo.Console\AssemblyInfo.Console.csproj", "{24C468FA-5EAD-44C6-9313-CF885CBCA3FD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyInfo.Sample.v2.x86 (2)", "AssemblyInfo.Sample.v2.x86 (2)\AssemblyInfo.Sample.v2.x86 (2).csproj", "{7F077A18-1DE6-41B1-AB2E-4CF89203E2AC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssemblyInfo.Sample.Standard", "AssemblyInfo.Sample.Standard\AssemblyInfo.Sample.Standard.csproj", "{6C085D1D-B233-49B8-BAC4-76EAA30BF982}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssemblyInfo.Sample.Core", "AssemblyInfo.Sample.Core\AssemblyInfo.Sample.Core.csproj", "{6BDFB0F2-77D3-47A9-B2BF-7CC1E4E166D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +70,14 @@ Global
 		{7F077A18-1DE6-41B1-AB2E-4CF89203E2AC}.Debug|Any CPU.Build.0 = Debug|x86
 		{7F077A18-1DE6-41B1-AB2E-4CF89203E2AC}.Release|Any CPU.ActiveCfg = Debug|x86
 		{7F077A18-1DE6-41B1-AB2E-4CF89203E2AC}.Release|Any CPU.Build.0 = Debug|x86
+		{6C085D1D-B233-49B8-BAC4-76EAA30BF982}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C085D1D-B233-49B8-BAC4-76EAA30BF982}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C085D1D-B233-49B8-BAC4-76EAA30BF982}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C085D1D-B233-49B8-BAC4-76EAA30BF982}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BDFB0F2-77D3-47A9-B2BF-7CC1E4E166D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BDFB0F2-77D3-47A9-B2BF-7CC1E4E166D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BDFB0F2-77D3-47A9-B2BF-7CC1E4E166D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BDFB0F2-77D3-47A9-B2BF-7CC1E4E166D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,5 +88,10 @@ Global
 		{54DA9B90-84A2-4BE0-9C00-DBEDC64D29E6} = {E292E8C1-9C10-4AD1-B70A-8B7CAFEF0D96}
 		{D8EC79AD-59CE-4325-B427-235433EDB478} = {E292E8C1-9C10-4AD1-B70A-8B7CAFEF0D96}
 		{7F077A18-1DE6-41B1-AB2E-4CF89203E2AC} = {E292E8C1-9C10-4AD1-B70A-8B7CAFEF0D96}
+		{6C085D1D-B233-49B8-BAC4-76EAA30BF982} = {E292E8C1-9C10-4AD1-B70A-8B7CAFEF0D96}
+		{6BDFB0F2-77D3-47A9-B2BF-7CC1E4E166D1} = {E292E8C1-9C10-4AD1-B70A-8B7CAFEF0D96}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F84930D2-D46B-4F02-9438-390051F5D999}
 	EndGlobalSection
 EndGlobal

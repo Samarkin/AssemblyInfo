@@ -161,5 +161,27 @@ namespace AssemblyInfo.Tests
 			Assert.That(ass.Dependencies, Is.Not.Null);
 			Assert.That(ass.Debug, Is.Null);
 		}
+
+		[Test]
+		public void DotNetStandardAssemblyLoadTest()
+		{
+			var ass = AssemblyProber.Create(@"..\1\netstandard2.0\AssemblyInfo.Sample.Standard.dll");
+			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
+			Assert.That(ass.CLRVersion.StartsWith("v4."));
+			Assert.That(ass.Architecture, Is.EqualTo("MSIL"));
+			Assert.That(ass.GlobalAssemblyCache, Is.False);
+			Assert.That(ass.Dependencies, Is.Not.Null);
+		}
+
+		[Test]
+		public void DotNetCoreAssemblyLoadTest()
+		{
+			var ass = AssemblyProber.Create(@"..\1\netcoreapp2.0\AssemblyInfo.Sample.Core.dll");
+			Assert.That(ass.ErrorLevel, Is.EqualTo(ErrorLevel.Success));
+			Assert.That(ass.CLRVersion.StartsWith("v4."));
+			Assert.That(ass.Architecture, Is.EqualTo("MSIL"));
+			Assert.That(ass.GlobalAssemblyCache, Is.False);
+			Assert.That(ass.Dependencies, Is.Not.Null);
+		}
 	}
 }
