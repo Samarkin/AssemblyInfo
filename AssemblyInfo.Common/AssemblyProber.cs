@@ -163,7 +163,7 @@ namespace AssemblyInfo.Common
 					.Select(attr => (T) CreateAttribute(attr));
 			}
 			catch (Exception ex)
-				when (ex is FileNotFoundException || ex is FileLoadException || ex is BadImageFormatException)
+				when (ex is FileNotFoundException || ex is FileLoadException || ex is BadImageFormatException || ex is TypeLoadException)
 			{
 				return Enumerable.Empty<T>();
 			}
